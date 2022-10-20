@@ -1,9 +1,0 @@
-Chat rooms :
-
-1.useCollectionData().
-2.Create room button to create new collection into Rooms collection.(done)
-3.Get all rooms' name.(done)
-4.View all rooms from firebase.(done)
-5.Select room will render all messages of it in the window component.(done)
-6.Add messages to the room will select the room collection and add to it.(done)
-
