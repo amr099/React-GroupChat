@@ -3,13 +3,13 @@ import { auth } from "../firebase-config";
 // import { updateDoc, doc } from "firebase/firestore";
 // import { db } from "../firebase-config";
 
-export function LogOut({ user }) {
+export function LogOut() {
     const Out = async () => {
+        signOut(auth);
         // let userRef = await doc(db, "Users", user.email);
         // await updateDoc(userRef, {
         //     status: "offline",
         // });
-        signOut(auth);
     };
 
     return (

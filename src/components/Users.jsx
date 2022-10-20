@@ -1,15 +1,8 @@
 import React from "react";
-import { collection } from "firebase/firestore";
-import { db } from "../firebase-config";
-import { useCollectionData } from "react-firebase-hooks/firestore";
 
-export const Users = () => {
-    let usersCol = collection(db, "Users");
-    const [users] = useCollectionData(usersCol);
-
+export const Users = ({ users }) => {
     return (
         <>
-            {/* <h2> All users : </h2> */}
             <ul>
                 {users?.map((user) => (
                     <>
@@ -25,7 +18,6 @@ export const Users = () => {
                                     }
                                 ></div>
                             </div>
-                            {/* <img src={user.picURL} alt='photo'></img> */}
                         </li>
                     </>
                 ))}

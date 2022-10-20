@@ -3,14 +3,14 @@ import { db } from "../firebase-config";
 import { useState } from "react";
 import { useRef } from "react";
 
-export default function Form({ loggedUser, selectedRoom }) {
+export default function Form({ loggedUserName, selectedRoom }) {
     const [message, setMessage] = useState("");
     const inputRef = useRef(null);
 
     let addMessages = async (selectedRoom) => {
         let newMessage = {
             message: message,
-            user: loggedUser,
+            user: loggedUserName,
             time: new Date().toLocaleString(),
         };
         inputRef.current.value = "";

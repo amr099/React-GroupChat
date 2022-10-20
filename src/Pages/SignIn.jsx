@@ -2,8 +2,8 @@ import { useState } from "react";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 import { Link, useNavigate } from "react-router-dom";
-import { updateDoc, doc } from "firebase/firestore";
-import { db } from "../firebase-config";
+// import { updateDoc, doc } from "firebase/firestore";
+// import { db } from "../firebase-config";
 
 export default function SignIn() {
     const [logError, setLogError] = useState("");
@@ -15,10 +15,10 @@ export default function SignIn() {
         let logPassword = e.target[1].value;
         try {
             await signInWithEmailAndPassword(auth, logEmail, logPassword);
-            let userRef = await doc(db, "Users", logEmail);
-            await updateDoc(userRef, {
-                status: "online",
-            });
+            // let userRef = await doc(db, "Users", logEmail);
+            // await updateDoc(userRef, {
+            //     status: "online",
+            // });
             navigate("/");
         } catch (e) {
             if (e.message === "Firebase: Error (auth/invalid-email).") {

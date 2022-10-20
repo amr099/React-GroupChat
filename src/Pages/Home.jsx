@@ -1,11 +1,18 @@
 import Message from "../components/Message.jsx";
 import Form from "../components/Form.jsx";
 import { useState, useEffect, useContext } from "react";
-import { collection, onSnapshot, getDoc, doc } from "firebase/firestore";
+import {
+    collection,
+    onSnapshot,
+    getDoc,
+    doc,
+    setDoc,
+    arrayUnion,
+} from "firebase/firestore";
 import { db } from "../firebase-config";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { AuthContext } from "../context/AuthContext";
-import { CreateRoomModal } from "../components/CreateRoomModal.jsx";
+import CustomModal from "../components/CustomModal";
 // import { Users } from "./Users";
 import { Rooms } from "../components/Rooms";
 import Profile from "../components/Profile";
@@ -14,7 +21,7 @@ export default function Home() {
     const { user } = useContext(AuthContext);
 
     let usersCol = collection(db, "Users");
-    const [users, loading, error, snapshot] = useCollectionData(usersCol);
+    const [users] = useCollectionData(usersCol);
 
     const [loggedUserName, setLoggedUserName] = useState("");
     const [selectedRoom, setSelectedRoom] = useState("Room 1");
@@ -36,6 +43,11 @@ export default function Home() {
         };
     }, [selectedRoom]);
 
+    useEffect(() => {
+        let win = document.getElementById("window");
+        win.scrollTop = win.scrollHeight;
+    }, [messages]);
+
     async function getRoomMsgs(room) {
         try {
             setSelectedRoom(room);
@@ -46,11 +58,26 @@ export default function Home() {
         }
     }
 
-    useEffect(() => {
-        let win = document.getElementById("window");
-        win.scrollTop = win.scrollHeight;
-    }, [messages]);
-
+    const createRoom = async (e) => {
+        e.preventDefault();
+        let roomName = e.target[0].value;
+        try {
+            const newRoom = await doc(db, "Rooms", roomName);
+            await setDoc(newRoom, {
+                creator: loggedUserName,
+                messages: arrayUnion({
+                    message: `${loggedUserName} has created ${roomName} Room successfully!`,
+                    time: new Date().toLocaleString(),
+                    user: loggedUserName,
+                }),
+                lastUpdated: new Date().toLocaleString(),
+                name: roomName,
+            });
+        } catch (e) {
+            console.log(e.message);
+            console.log("error while adding message.");
+        }
+    };
     return (
         <>
             <div className='container column'>
@@ -63,24 +90,30 @@ export default function Home() {
 
                 <div className='row between'>
                     <div className='column rooms-container'>
-                        <CreateRoomModal loggedUserName={loggedUserName} />
+                        <CustomModal
+                            loggedUserName={loggedUserName}
+                            labelName='New Room'
+                            buttonName='Create New Room'
+                            inputType='text'
+                            onSubmitFun={createRoom}
+                        />
                         <Rooms getRoomMsgs={getRoomMsgs} />
                     </div>
 
                     <div className='column window'>
                         <Message
                             loggedUserName={loggedUserName}
-                            messages={messages}
                             users={users}
+                            messages={messages}
                         />
                         <Form
+                            loggedUserName={loggedUserName}
                             selectedRoom={selectedRoom}
-                            loggedUser={loggedUserName}
                         ></Form>
                     </div>
 
                     {/* <div className='users'>
-                        <Users />
+                        <Users users={users}/>
                     </div> */}
                 </div>
             </div>

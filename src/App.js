@@ -8,18 +8,18 @@ function App() {
     return (
         <>
             <Routes>
-                <Route path='/'>
-                    <Route
-                        index
-                        element={
-                            <ProtectedRoute>
-                                <Home />
-                            </ProtectedRoute>
-                        }
-                    />
-                    <Route path='register' element={<Register />} />
-                    <Route path='signin' element={<SignIn />} />
-                </Route>
+                <Route
+                    path='/'
+                    element={
+                        <ProtectedRoute>
+                            <Home />
+                        </ProtectedRoute>
+                    }
+                />
+
+                <Route path='register' element={<Register />} />
+
+                <Route path='signin' element={<SignIn />} />
                 <Route path='*' element={<Navigate to='/' />} />
             </Routes>
         </>
