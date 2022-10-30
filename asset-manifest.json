@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/React-GroupChat/static/css/main.13b1dae4.css",
+    "main.js": "/React-GroupChat/static/js/main.8623ab2d.js",
+    "static/js/787.0aa8d685.chunk.js": "/React-GroupChat/static/js/787.0aa8d685.chunk.js",
+    "static/media/register.jpg": "/React-GroupChat/static/media/register.809210fa88a9c1bf588a.jpg",
+    "index.html": "/React-GroupChat/index.html",
+    "main.13b1dae4.css.map": "/React-GroupChat/static/css/main.13b1dae4.css.map",
+    "main.8623ab2d.js.map": "/React-GroupChat/static/js/main.8623ab2d.js.map",
+    "787.0aa8d685.chunk.js.map": "/React-GroupChat/static/js/787.0aa8d685.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.13b1dae4.css",
+    "static/js/main.8623ab2d.js"
+  ]
+}
